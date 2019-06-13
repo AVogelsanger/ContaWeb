@@ -13,11 +13,26 @@ namespace ContaWeb.Controllers
 
         UnitOfWork _unit = new UnitOfWork();
 
+        [HttpGet]
+        public ActionResult Buscar(int? idConta)
+        {
+            var conta = _unit.ContaCorrenteRepository.BuscarPor(c => (idConta != null ? c.ID == idConta : 0 == 0));
+            return PartialView(conta);
+        }
+
+        //[HttpPost]
+        //public JsonResult ChamaConta(int dadosConta)
+        //{
+        //    var modulos = (_unit.ContaCorrenteRepository.BuscarPorNumero(dadosConta));
+        //    return Json(new { n = modulos.Nome });
+        //}
+
 
         public ActionResult Listar()
         {
-            var lista = _unit.ContaCorrenteRepository.Listar();
-            return View(lista);
+            ViewBag.Conta = new SelectList(_unit.ContaCorrenteRepository.Listar(), "ID","NumeroConta");
+            return View();
+            //return View(_unit.ContaCorrenteRepository.Listar());
         }
 
         [HttpPost]
@@ -30,7 +45,7 @@ namespace ContaWeb.Controllers
 
 
         [HttpGet]
-        public ActionResult Index()
+        public ActionResult Cadastrar()
         {
             return View();
         }
