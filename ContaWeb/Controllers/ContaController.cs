@@ -13,6 +13,34 @@ namespace ContaWeb.Controllers
 
         UnitOfWork _unit = new UnitOfWork();
 
+
+        [HttpPost]
+        public ActionResult Depositar(int id, string valor)
+        {
+            var valorFormatado = double.Parse(valor);
+            var conta = _unit.ContaCorrenteRepository.BuscarPorNumero(id);
+            var teste = conta.Saldo;
+            teste = teste + valorFormatado;
+            conta.Saldo = teste;
+            _unit.ContaCorrenteRepository.Atualizar(conta);
+
+            return PartialView();
+        }
+
+        [HttpPost]
+        public ActionResult Sacar(int id, double valor)
+        {
+            var conta = _unit.ContaCorrenteRepository.BuscarPorNumero(id);
+            var teste = conta.Saldo;
+            teste = teste - valor;
+            conta.Saldo = teste;
+            _unit.ContaCorrenteRepository.Atualizar(conta);
+
+            return PartialView();
+        }
+
+
+
         [HttpGet]
         public ActionResult Buscar(int? idConta)
         {
