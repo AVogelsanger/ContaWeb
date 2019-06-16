@@ -1,4 +1,5 @@
-﻿using ContaWeb.Models;
+﻿using ContaWeb.Metodos;
+using ContaWeb.Models;
 using ContaWeb.Unit;
 using System;
 using System.Collections.Generic;
@@ -15,29 +16,29 @@ namespace ContaWeb.Controllers
 
 
         [HttpPost]
-        public ActionResult Depositar(int id, string valor)
+        public ActionResult Depositar(int id)
         {
-            var valorFormatado = double.Parse(valor);
-            var conta = _unit.ContaCorrenteRepository.BuscarPorNumero(id);
-            var teste = conta.Saldo;
-            teste = teste + valorFormatado;
-            conta.Saldo = teste;
-            _unit.ContaCorrenteRepository.Atualizar(conta);
+            //Movimentacao mtd = new Movimentacao();
 
-            return PartialView();
+            var conta = _unit.ContaCorrenteRepository.BuscarPorNumero(id);
+            conta.Saldo += conta.Movimentacao;
+            
+            _unit.ContaCorrenteRepository.Atualizar(conta);
+            
+            return RedirectToAction("Listar");
         }
 
-        [HttpPost]
-        public ActionResult Sacar(int id, double valor)
-        {
-            var conta = _unit.ContaCorrenteRepository.BuscarPorNumero(id);
-            var teste = conta.Saldo;
-            teste = teste - valor;
-            conta.Saldo = teste;
-            _unit.ContaCorrenteRepository.Atualizar(conta);
+        //[HttpPost]
+        //public ActionResult Sacar(int id, double valor)
+        //{
+        //    var conta = _unit.ContaCorrenteRepository.BuscarPorNumero(id);
+        //    var teste = conta.Saldo;
+        //    teste = teste - valor;
+        //    conta.Saldo = teste;
+        //    _unit.ContaCorrenteRepository.Atualizar(conta);
 
-            return PartialView();
-        }
+        //    return PartialView();
+        //}
 
 
 

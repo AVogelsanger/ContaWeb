@@ -9,6 +9,12 @@ namespace ContaWeb.Persistence
 {
     public class ContaContext : DbContext
     {
+
+        public ContaContext() : base("ContaContext")
+        {
+                            
+        }
+
         public DbSet<ContaCorrente> Contas { get; set; }
     }
 }

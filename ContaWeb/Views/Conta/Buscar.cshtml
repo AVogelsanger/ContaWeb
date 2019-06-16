@@ -1,4 +1,5 @@
-﻿
+﻿@model List<ContaWeb.Models.ContaCorrente>
+
 @{
     ViewBag.Title = "Buscar";
 }
@@ -34,13 +35,13 @@
                             <td>@conta.Saldo</td>
                             <td></td>
                             <td>
-                                <button onclick="depConta.value = @conta.Saldo" type="button" class="btn btn-primary btn-xs"
-                                        data-toggle="modal" data-target="#myModal">
+                                <button onclick="depConta.value = @conta.ID" type="button" class="btn btn-primary btn-xs"
+                                        data-toggle="modal" data-target="#myModal1">
                                     Depositar
                                 </button>
                      
-                                <button onclick="sacConta.value = @conta.Saldo" type="button" class="btn btn-danger btn-xs"
-                                        data-toggle="modal" data-target="#myModal">
+                                <button onclick="sacConta.value = @conta.ID" type="button" class="btn btn-danger btn-xs"
+                                        data-toggle="modal" data-target="#myModal2">
                                     Sacar
                                 </button>
                             </td>
@@ -55,7 +56,7 @@
 </div>
 
 <!-- Modal dep-->
-<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+<div class="modal fade" id="myModal1" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -64,23 +65,36 @@
             </div>
             <div class="modal-body">
                 <label>
-                    Digite o valor que deseja depositar?
+                    Digite o valor que deseja sacar?
                 </label>
 
-</div>
-            <div class="modal-footer">
-                @using (Html.BeginForm("Depositar", "Conta"))
-                {
-                    <div class="form-group">
+                <div class="form-group">
 
-                        <div class="col-md-10">
-                            <label>R$</label>
-                            <input type="text" id="money" class="form-control" />
+                    <div class="col-md-10">
+                        <div class="form-group">
+
+                            <form method="post" action="/Conta/Cadastrar">
+                                <div class="form-group row">
+                                    <label class="col-sm-2 col-form-label">R$</label>
+                                    <div class="col-md-10">
+                                        <input name="movimentacao" type="text" class="form-control" value="Movimentacao" placeholder="R$" />
+                                        @*@Html.EditorFor(model => model, new { htmlAttributes = new { @class = "form-control" } })
+                                        @Html.ValidationMessageFor(model => model.Agencia, "", new { @class = "text-danger" })*@
+                                    </div>
+                                </div>
+                            </form>
+
                         </div>
                     </div>
+                </div>
+
+            </div>
+            <div class="modal-footer">
+                @using (Html.BeginForm("Depositar", "Conta"))
+            {
                     <input type="hidden" name="id" id="depConta" />
                     <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
-                    <button type="button" id="Depositar"class="btn btn-primary">Depositar</button>
+                    <button type="submit" class="btn btn-primary">Depositar</button>
                 }
             </div>
         </div>
@@ -88,8 +102,9 @@
 </div>
 
 
+
 <!-- Modal sac-->
-<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+<div class="modal fade" id="myModal2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -121,3 +136,16 @@
         </div>
     </div>
 </div>
+
+
+@*<script>
+
+    $('#insert_form').on('submit', function (event) {
+        event.preventDefault();
+        var dados = $("insert_form").serialize();
+        $.post("cadastrar.php", dados, function (retorna) {
+
+        });
+    });
+
+</script>*@

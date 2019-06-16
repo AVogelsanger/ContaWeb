@@ -125,6 +125,16 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Metodos\Movimentacao.cs" />
+    <Compile Include="Migrations\201906122041057_InitialCreate.cs" />
+    <Compile Include="Migrations\201906122041057_InitialCreate.Designer.cs">
+      <DependentUpon>201906122041057_InitialCreate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201906150004439_v1.cs" />
+    <Compile Include="Migrations\201906150004439_v1.Designer.cs">
+      <DependentUpon>201906150004439_v1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\ContaCorrente.cs" />
     <Compile Include="Persistence\ContaContext.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -141,6 +151,7 @@
     <Content Include="Views\Conta\Cadastrar.cshtml" />
     <Content Include="Views\Conta\Listar.cshtml" />
     <Content Include="Views\Conta\Buscar.cshtml" />
+    <Content Include="Views\Modais\View.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -150,6 +161,14 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201906122041057_InitialCreate.resx">
+      <DependentUpon>201906122041057_InitialCreate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201906150004439_v1.resx">
+      <DependentUpon>201906150004439_v1.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

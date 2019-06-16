@@ -1,0 +1,37 @@
+﻿@model ContaWeb.Models.ContaCorrente
+
+<div class="modal-dialog" role="document" id="myModal1">
+    <div class="modal-content">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title" id="myModalLabel">Confirmação</h4>
+        </div>
+        <div class="modal-body">
+            <label>
+                Digite o valor que deseja sacar?
+            </label>
+
+            <div class="form-group">
+
+                <div class="col-md-10">
+                    <div class="form-group">
+                        <label>R$</label>
+                        <div class="col-md-10">
+                            @Html.TextBoxFor(c => c.Movimentacao, new { @class = "form-control" })
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <div class="modal-footer">
+            @using (Html.BeginForm("Depositar", "Conta"))
+            {
+                <input type="hidden" name="id" id="depConta" />
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                    <button type="submit" class="btn btn-primary">Depositar</button>
+            }
+        </div>
+    </div>
+</div>
+
