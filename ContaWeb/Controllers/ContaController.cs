@@ -16,29 +16,33 @@ namespace ContaWeb.Controllers
 
 
         [HttpPost]
-        public ActionResult Depositar(int id)
+        public ActionResult Depositar(int id, double money)
         {
             //Movimentacao mtd = new Movimentacao();
 
             var conta = _unit.ContaCorrenteRepository.BuscarPorNumero(id);
+            conta.Movimentacao = money;
             conta.Saldo += conta.Movimentacao;
-            
+
             _unit.ContaCorrenteRepository.Atualizar(conta);
-            
+            _unit.Save();
+
             return RedirectToAction("Listar");
         }
 
-        //[HttpPost]
-        //public ActionResult Sacar(int id, double valor)
-        //{
-        //    var conta = _unit.ContaCorrenteRepository.BuscarPorNumero(id);
-        //    var teste = conta.Saldo;
-        //    teste = teste - valor;
-        //    conta.Saldo = teste;
-        //    _unit.ContaCorrenteRepository.Atualizar(conta);
 
-        //    return PartialView();
-        //}
+        [HttpPost]
+        public ActionResult Sacar(int id, double money)
+        {
+            var conta = _unit.ContaCorrenteRepository.BuscarPorNumero(id);
+            conta.Movimentacao = money;
+            conta.Saldo -= conta.Movimentacao;
+
+            _unit.ContaCorrenteRepository.Atualizar(conta);
+            _unit.Save();
+
+            return RedirectToAction("Listar");
+        }
 
 
 

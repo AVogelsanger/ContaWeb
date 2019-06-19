@@ -22,7 +22,6 @@
                         <th>Saldo</th>
                         <th></th>
                         <th>Transação</th>
-                        @*<th>EDITAR</th>*@
                     </tr>
 
 
@@ -40,12 +39,11 @@
                                     Depositar
                                 </button>
                      
-                                @*<button onclick="sacConta.value = @conta.ID" type="button" class="btn btn-danger btn-xs"
+                                <button onclick="sacConta.value = @conta.ID" type="button" class="btn btn-danger btn-xs"
                                         data-toggle="modal" data-target="#myModal2">
                                     Sacar
-                                </button>*@
+                                </button>
                             </td>
-
                         </tr>
                     }
                 </table>
@@ -55,80 +53,75 @@
     </div>
 </div>
 
+
+
 <!-- Modal dep-->
 <div class="modal fade" id="myModal1" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title" id="myModalLabel">Depósito</h4>
+                <h4 class="modal-title" id="myModalLabel">Confirmação</h4>
             </div>
+            @using (Html.BeginForm("Depositar", "Conta", FormMethod.Post))
+            {
             <div class="modal-body">
-                
+                <label>
+                    Digite o valor que deseja depositar?
+                </label>
                 <div class="form-group">
-
-                    <form action="/Conta/Cadastrar" method="post">
-                        <div class="form-group">
-                            <label>Valor</label>
-                            <input type="number" name="movimentacao" id="idMovimentacao" class="form-control" placeholder="R$" />
-                        </div>
-                        <div class="form-group">
-                            <div class="col-md-offset-2 col-md-10">
-                                <input type="submit" value="Confirmar o valor" class="btn btn-success" />
-                            </div>
-                        </div>
-                    </form>
-
+                    <div class="col-md-10">
+                        <label>R$</label>
+                        <input type="text" name="money" class="form-control" />
+                    </div>
                 </div>
 
             </div>
             <div class="modal-footer">
-                @using (Html.BeginForm("Depositar", "Conta"))
-                {
-                    <input type="hidden" name="id" id="depConta" />
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
-                    <button type="submit" class="btn btn-primary">Depositar</button>
-                }
+            <input type="hidden" name="id" id="depConta" />
+            <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+            <button type="submit" class="btn btn-primary">Depositar</button>
+                
             </div>
+            }
         </div>
     </div>
 </div>
 
 
-
 <!-- Modal sac-->
-@*<div class="modal fade" id="myModal2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+<div class="modal fade" id="myModal2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                 <h4 class="modal-title" id="myModalLabel">Confirmação</h4>
             </div>
-            <div class="modal-body">
-                <label>
-                    Digite o valor que deseja sacar?
-                </label>
-
-                <div class="form-group">
-
-                    <div class="col-md-10">
-                        <label>R$</label>
-                        <input type="text" id="money" class="form-control" />
+            @using (Html.BeginForm("Sacar", "Conta", FormMethod.Post))
+            {
+                <div class="modal-body">
+                    <label>
+                        Digite o valor que deseja sacar?
+                    </label>
+                    <div class="form-group">
+                        <div class="col-md-10">
+                            <label>R$</label>
+                            <input type="text" name="money" class="form-control" />
+                        </div>
                     </div>
-                </div>
 
-            </div>
-            <div class="modal-footer">
-                @using (Html.BeginForm("Sacar", "Conta"))
-                {
+                </div>
+                <div class="modal-footer">
                     <input type="hidden" name="id" id="sacConta" />
                     <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
                     <button type="submit" class="btn btn-primary">Sacar</button>
-                }
-            </div>
+
+                </div>
+            }
         </div>
     </div>
-</div>*@
+</div>
+
 
 
 @*<script>
